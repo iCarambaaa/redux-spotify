@@ -10,7 +10,10 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const Player = ({selectedSong}) => {
-  
+  const track=selectedSong.track[0].title_short
+  useEffect(()=> {
+    console.log(track)
+  }, [track])
 return (
   <div className="container-fluid fixed-bottom bg-container pt-1">
     
@@ -19,7 +22,12 @@ return (
       <div className="col-lg-10 offset-lg-2">
         <Row>
         <div className="col-6 col-md-4 col-lg-2">
-          {/* <h6 className="text-white">{selectedSong.track[0].title_short}</h6> */}
+          {
+          selectedSong.track === []?
+          <h6 className="text-white"></h6>:
+          <h6 className="text-white">{track}</h6>
+          }
+          
         </div>
           <div className="col-6 col-md-4 col-lg-2 offset-1 offset-md-2 offset-lg-3 playerControls mt-1">
             <Row >

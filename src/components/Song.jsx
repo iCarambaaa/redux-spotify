@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-const Song = ({ track, arrayOfSongs }) => {
+const Song = ({ track, arrayOfSongs, selectSong }) => {
 
   const likedBoolean = arrayOfSongs.includes(track.id)
 
@@ -29,7 +29,7 @@ const Song = ({ track, arrayOfSongs }) => {
 
   return (
     <div className="py-3 trackHover">
-      <span className="card-title trackHover px-3" style={{ color: "white" }}>
+      <span onClick={()=>(selectSong(track))} className="card-title trackHover px-3" style={{ color: "white" }}>
         {track.title}
       </span>
       <small className="duration" style={{ color: "white" }}>
