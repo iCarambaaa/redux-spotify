@@ -65,7 +65,7 @@ class Album extends React.Component {
     if (this.props.selectedAlbums !== prevProps.selectedAlbums) {
       album = { ...this.props.selectedAlbums };
       await this.props.getAlbumByAlbumId(albumId);
-      console.log(album);
+      // console.log(album);
       // console.log(album.selectedAlbums.tracks.data);
       // console.log(album.selectedAlbums.title);
       // console.log(album.selectedAlbums.cover);

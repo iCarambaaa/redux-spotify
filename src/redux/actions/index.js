@@ -114,6 +114,6 @@ export const selectSongAction = (song) => ({
 })
 
 export const addToLikesAction = (likes) => ({
-  type:ADD_TO_LIKES,
+  type:ADD_LIKE_TO_SONG,
   payload: likes, 
 })

@@ -1,31 +1,32 @@
 import React from "react";
-import { Heart, HeartFill } from 'react-bootstrap-icons'
-import { connect } from 'react-redux'
-import { selectSongAction } from "../redux/actions";
+import { Heart, HeartFill } from "react-bootstrap-icons";
+import { connect } from "react-redux";
+import { selectSongAction, addToLikesAction } from "../redux/actions";
+import { useState } from "react";
 
 const mapStateToProps = (state) => ({
   // liked: state.likedSongs.liked,
-  arrayOfSongs: state.arrayOfSongs.songs
+  arrayOfSongs: state.arrayOfSongs.songs,
   // albumSongs: state.selectedAlbums.songs,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  selectSong: ( value ) => {
-    dispatch(selectSongAction(value))
-  }
-  // getAlbumByAlbumId: (albumId) => {
-  //   dispatch(albumSongByAlbumidAction(albumId));
-  // },
+  selectSong: (value) => {
+    dispatch(selectSongAction(value));
+  },
+  likeSong: (track) => {
+    dispatch(addToLikesAction(track));
+  },
 });
 
+const Song = ({ track, arrayOfSongs, likeSong }) => {
+  const [likedBoolean, setLikedBoolean] = useState();
+  // let likedBoolean = arrayOfSongs.includes(track.id);
 
-const Song = ({ track, arrayOfSongs }) => {
-
-  const likedBoolean = arrayOfSongs.includes(track.id)
-
-  // const handleClick = () => {
-  //   <HeartFill />
-  // }
+  const handleClick = (track) => {
+    likeSong(track);
+    setLikedBoolean(!likedBoolean);
+  };
 
   return (
     <div className="py-3 trackHover">
@@ -37,10 +38,18 @@ const Song = ({ track, arrayOfSongs }) => {
         {parseInt(track.duration) % 60 < 10
           ? "0" + (parseInt(track.duration) % 60)
           : parseInt(track.duration) % 60}
-          {likedBoolean !== true ? <Heart className="ml-2" color="white" /> : <HeartFill className="ml-2" color="white" />}
+        {likedBoolean !== true ? (
+          <Heart
+            className="ml-2"
+            color="white"
+            onClick={() => handleClick(track)}
+          />
+        ) : (
+          <HeartFill className="ml-2" color="white" onClick={handleClick} />
+        )}
       </small>
     </div>
-  )
-}
+  );
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Song)
+export default connect(mapStateToProps, mapDispatchToProps)(Song);
