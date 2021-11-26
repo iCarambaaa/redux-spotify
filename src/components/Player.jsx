@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Row } from "react-bootstrap";
+import { connect } from 'react-redux'
 
-const Player = () => (
+const mapStateToProps = (state) => ({
+  selectedSong: state.selectedSong
+})
+
+const mapDispatchToProps = dispatch => ({
+})
+
+const Player = ({selectedSong}) => {
+  useEffect(() => {
+    console.log(selectedSong.track[0].title_short)
+  },[selectedSong])
+return (
   <div className="container-fluid fixed-bottom bg-container pt-1">
+    
     <Row>
-      <div className="col-lg-10 offset-lg-2">
+    
+      <div className="col-lg-8 offset-lg-4">
         <Row>
           <div className="col-6 col-md-4 col-lg-2 offset-3 offset-md-4 offset-lg-5 playerControls mt-1">
-            <Row>
+            <Row >
               <a href="/">
                 <img src="/playerbuttons/Shuffle.png" alt="shuffle" />
               </a>
@@ -42,6 +56,6 @@ const Player = () => (
       </div>
     </Row>
   </div>
-);
+)}
 
-export default Player;
+export default connect(mapStateToProps, mapDispatchToProps)(Player)

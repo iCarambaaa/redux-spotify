@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
+import selectedSongReducer from '../reducers/selectedsong'
 
 
 const aComposeFunctionThatAlwaysWorks = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -19,13 +20,15 @@ export const initialState = {
         playingQueue: [],
         otherPlaylist: []
     },
+    selectedSong: {
+        track: []
+    }
 
 }
 
 
 const reducerGrande = combineReducers({                     // combine reducers here
-    // likedSongs: likedReducer,
-    // ...
+    selectedSong: selectedSongReducer
    
 })
 
