@@ -3,10 +3,11 @@ import Song from "./Song";
 import { Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { albumSongByAlbumidAction } from "../redux/actions/index.js";
+import uniqid from "uniqid"
 
 const mapStateToProps = (state) => ({
-  Songs:state.arrayOfSongs.songs,
-  selectedAlbums: state. selectedAlbums
+  songs:state.arrayOfSongs.songs,
+  selectedAlbums: state.selectedAlbums
   })
   
   const mapDispatchToProps = (dispatch) => ({
@@ -17,12 +18,10 @@ const mapStateToProps = (state) => ({
   
 
 class Album extends React.Component {
-  state = {
-    album: {},
-    songs: [],
-  };
+ 
 
   componentDidMount = async () => {
+    console.log(this.props.selectedAlbums)
     let albumId = this.props.match.params.id;
 
     let headers = new Headers({
@@ -30,7 +29,7 @@ class Album extends React.Component {
       "X-RapidAPI-Key": "222902beabmshb95a65b737cead6p1f3ac9jsn23ced94c0d20",
     });
 
-    this.getAlbumByAlbumId(albumId)
+    this.props.getAlbumByAlbumId(albumId)
 
   //   try {
   //     let response = await fetch(
@@ -66,19 +65,19 @@ class Album extends React.Component {
           </div>
         </Row>
         <Row>
-          {this.state.album.cover && (
+          {this.props.selectedAlbums.cover && (
             <div className="col-md-3 pt-5 text-center" id="img-container">
               <img
-                src={this.state.album.cover}
+                src={this.props.selectedAlbums.cover}
                 className="card-img img-fluid"
                 alt="Album"
               />
               <div className="mt-4 text-center">
-                <p className="album-title">{this.state.album.title}</p>
+                <p className="album-title">{this.props.selectedAlbums.title}</p>
               </div>
               <div className="text-center">
                 <p className="artist-name">
-                  {this.state.album.artist ? this.state.album.artist.name : ""}
+                  {this.props.selectedAlbums.artist ? this.props.selectedAlbums.artist.name : ""}
                 </p>
               </div>
               <div className="mt-4 text-center">
@@ -90,8 +89,8 @@ class Album extends React.Component {
           )}
           <div className="col-md-8 p-5">
             <Row>
-              <div className="col-md-10 mb-5" id="trackList">
-                {this.state.songs.map((song) => (
+              <div className="col-md-10 mb-5" id={uniqid}>
+                {this.props.songs.map((song) => (
                   <Song track={song} key={song.id} />
                 ))}
               </div>

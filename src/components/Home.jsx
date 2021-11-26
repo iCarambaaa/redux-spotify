@@ -3,9 +3,10 @@ import AlbumCard from "./AlbumCard";
 import { Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import { getSongByArtistNameAction } from "../redux/actions/index.js";
+import uniqid from "uniqid"
 
 const mapStateToProps = (state) => ({
-Songs:state.arrayOfSongs.songs
+songs:state.arrayOfSongs.songs
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -138,13 +139,13 @@ class Home extends React.Component {
           <>
             <Row>
               <Col xs={10}>
-                <div id="rock">
+                <div id={uniqid}>
                   <h2>Rock Classics</h2>
                   <Row
                     className="row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3"
                     id="rockSection"
                   >
-                    {this.state.rockSongs.map((song) => (
+                    {this.props.songs.map((song) => (
                       <AlbumCard song={song} key={song.id} />
                     ))}
                   </Row>
