@@ -5,7 +5,7 @@ import thunk from 'redux-thunk'
 import albumReducer from '../reducers/album.js'
 import songsReducer from '../reducers/home.js'
 import selectedSongReducer from '../reducers/selectedsong'
-
+import likesReducer from '../reducers/likes'
 const aComposeFunctionThatAlwaysWorks = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 
@@ -37,8 +37,9 @@ const persistConfig = {                                     // configure persist
   }
 
 const reducerGrande = combineReducers({                     // combine reducers here
-    // likedSongs: likedReducer,
+    likedSongs: likesReducer,
     // ...
+
    arrayOfSongs:songsReducer,
    selectedAlbums:albumReducer,
     selectedSong: selectedSongReducer

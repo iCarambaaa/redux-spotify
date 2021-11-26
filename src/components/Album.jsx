@@ -32,9 +32,9 @@ class Album extends React.Component {
 
     await this.props.getAlbumByAlbumId(albumId);
 
-    console.log(this.props.selectedAlbums);
-    console.log(this.props.selectedAlbums.tracks);
-    console.log(this.props.selectedAlbums.cover);
+    // console.log(this.props.selectedAlbums);
+    // console.log(this.props.selectedAlbums.tracks);
+    // console.log(this.props.selectedAlbums.cover);
     //   try {
     //     let response = await fetch(
     //       "https://striveschool-api.herokuapp.com/api/deezer/album/" + albumId,
@@ -65,11 +65,11 @@ class Album extends React.Component {
     if (this.props.selectedAlbums !== prevProps.selectedAlbums) {
       album = { ...this.props.selectedAlbums };
       await this.props.getAlbumByAlbumId(albumId);
-      console.log(album);
-      console.log(album.selectedAlbums.tracks.data);
-      console.log(album.selectedAlbums.title);
-      console.log(album.selectedAlbums.cover);
-      console.log({ ...this.props.selectedAlbums.title });
+      // console.log(album);
+      // console.log(album.selectedAlbums.tracks.data);
+      // console.log(album.selectedAlbums.title);
+      // console.log(album.selectedAlbums.cover);
+      // console.log({ ...this.props.selectedAlbums.title });
     }
   };
 

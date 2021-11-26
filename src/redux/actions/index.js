@@ -3,6 +3,7 @@ export const SEARCH_SONG_BY_ARTIST_NAME = 'SEARCH_SONG_BY_ARTIST_NAME'
 //export const GET_SONGS_ERROR ='GET_SONGS_ERROR'
 export const ALBUM_SONG_BY_ALBUMID ='ALBUM_SONG_BY_ALBUMID'
 export const ARTIST_BY_ID_AND_NAME = 'ARTIST_BY_ID_AND_NAME'
+export const ADD_LIKE_TO_SONG = "ADD_LIKE_TO_SONG"
 
 export const  getSongByArtistNameAction =  (artistName)=>{
     return async (dispatch)=>{
@@ -110,4 +111,9 @@ export const SELECTED_SONG = 'SELECTED_SONG'
 export const selectSongAction = (song) => ({
     type: SELECTED_SONG,
     payload: song
+})
+
+export const addToLikesAction = (likes) => ({
+  type:ADD_LIKE_TO_SONG,
+  payload: likes, 
 })
