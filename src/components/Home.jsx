@@ -3,17 +3,17 @@ import AlbumCard from "./AlbumCard";
 import { Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import { getSongByArtistNameAction } from "../redux/actions/index.js";
-import uniqid from "uniqid"
+import uniqid from "uniqid";
 
 const mapStateToProps = (state) => ({
-songs:state.arrayOfSongs.songs
-})
+  songs: state.arrayOfSongs.songs,
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  getSongsByArtistName: (artistName) => {
-    dispatch(getSongByArtistNameAction(artistName))
-  }
-})
+  getSongsByArtistName: (artistName, category) => {
+    dispatch(getSongByArtistNameAction(artistName, category));
+  },
+});
 
 class Home extends React.Component {
   state = {
@@ -68,7 +68,6 @@ class Home extends React.Component {
   // };
 
   componentDidMount = async () => {
-   
     let rockRandomArtists = [];
     let popRandomArtists = [];
     let hipHopRandomArtists = [];
@@ -102,11 +101,14 @@ class Home extends React.Component {
     for (let j = 0; j < rockRandomArtists.length; j++)
       await this.props.getSongsByArtistName(rockRandomArtists[j], "rockSongs");
 
-    for (let k = 0; k < popRandomArtists.length; k++)
-      await this.props.getSongsByArtistName(popRandomArtists[k], "popSongs");
+    // for (let k = 0; k < popRandomArtists.length; k++)
+    //   await this.props.getSongsByArtistName(popRandomArtists[k], "popSongs");
 
-    for (let l = 0; l < hipHopRandomArtists.length; l++)
-      await this.props.getSongsByArtistName(hipHopRandomArtists[l], "hipHopSongs");
+    // for (let l = 0; l < hipHopRandomArtists.length; l++)
+    //   await this.props.getSongsByArtistName(
+    //     hipHopRandomArtists[l],
+    //     "hipHopSongs"
+    //   );
   };
 
   render() {
@@ -189,4 +191,4 @@ class Home extends React.Component {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

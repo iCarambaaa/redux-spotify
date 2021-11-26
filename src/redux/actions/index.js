@@ -44,7 +44,9 @@ export const albumSongByAlbumidAction = (albumId)=>{
         
               if (response.ok) {
                 const album = await response.json();
-               const newAlbum = {album:album.tracks.data}
+              //  const newAlbum = 
+              //    {songs:album.tracks.data,
+              //     album: album}
                 // const setSongs = {
                 //     album,
                 //     songs: album.tracks.data,
@@ -52,7 +54,7 @@ export const albumSongByAlbumidAction = (albumId)=>{
                 
             dispatch({
                 type: ALBUM_SONG_BY_ALBUMID,
-                payload:newAlbum,
+                payload:album,
               })
               }else{
                   console.log("data failed to fetch")
