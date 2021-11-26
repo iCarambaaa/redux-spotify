@@ -16,7 +16,7 @@ class Artist extends React.Component {
       "X-RapidAPI-Key": "c74a0a086emshf55ffb8dbdcb59ap17a486jsnb83bb4d3e387",
     });
 
-    try {
+     try {
       let response = await fetch(
         "https://striveschool-api.herokuapp.com/api/deezer/artist/" + artistId,
         {
@@ -50,7 +50,7 @@ class Artist extends React.Component {
       }
     } catch (exception) {
       console.log(exception);
-    }
+    } 
   };
 
   render() {
