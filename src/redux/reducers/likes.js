@@ -1,9 +1,9 @@
 import { initialState } from '../store'
-// import {SAVE_TO_JOBLIST} from "../actions"
+import {ADD_LIKE_TO_SONG} from "../actions"
 
 
 
-const likesReducer = (state = initialState, action) => {
+const likesReducer = (state = initialState.likedSongs, action) => {
     
     switch (action.type) {
      
@@ -13,7 +13,7 @@ const likesReducer = (state = initialState, action) => {
 
             case ADD_LIKE_TO_SONG:
                 return {...state,
-                }
+                    liked: [...state.likedSongs, action.payload]}
 
             default: 
                 return state
@@ -22,4 +22,4 @@ const likesReducer = (state = initialState, action) => {
 
 
 
-export default mainReducer
+export default likesReducer
