@@ -1,6 +1,20 @@
 import React from "react";
 import Song from "./Song";
 import { Row } from "react-bootstrap";
+import { connect } from "react-redux";
+import { albumSongByAlbumidAction } from "../redux/actions/index.js";
+
+const mapStateToProps = (state) => ({
+  Songs:state.arrayOfSongs.songs,
+  selectedAlbums: state. selectedAlbums
+  })
+  
+  const mapDispatchToProps = (dispatch) => ({
+    getAlbumByAlbumId :(albumId) => {
+      dispatch(albumSongByAlbumidAction(albumId))
+    }
+  })
+  
 
 class Album extends React.Component {
   state = {
@@ -16,26 +30,28 @@ class Album extends React.Component {
       "X-RapidAPI-Key": "222902beabmshb95a65b737cead6p1f3ac9jsn23ced94c0d20",
     });
 
-    try {
-      let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/deezer/album/" + albumId,
-        {
-          method: "GET",
-          headers,
-        }
-      );
+    this.getAlbumByAlbumId(albumId)
 
-      if (response.ok) {
-        let album = await response.json();
-        this.setState({
-          album,
-          songs: album.tracks.data,
-        });
-      }
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
+  //   try {
+  //     let response = await fetch(
+  //       "https://striveschool-api.herokuapp.com/api/deezer/album/" + albumId,
+  //       {
+  //         method: "GET",
+  //         headers,
+  //       }
+  //     );
+
+  //     if (response.ok) {
+  //       let album = await response.json();
+  //       this.setState({
+  //         album,
+  //         songs: album.tracks.data,
+  //       });
+  //     }
+  //   } catch (exception) {
+  //     console.log(exception);
+  //   }
+   };
 
   render() {
     return (
@@ -87,4 +103,4 @@ class Album extends React.Component {
   }
 }
 
-export default Album;
+export default connect(mapStateToProps, mapDispatchToProps )(Album)
