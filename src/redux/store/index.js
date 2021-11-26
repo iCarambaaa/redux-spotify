@@ -2,6 +2,9 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 import thunk from 'redux-thunk'
+import albumReducer from '../reducers/album.js'
+import songsReducer from '../reducers/home.js'
+import selectedSongReducer from '../reducers/selectedsong'
 
 const aComposeFunctionThatAlwaysWorks = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -20,7 +23,12 @@ export const initialState = {
         playingQueue: [],
         otherPlaylist: []
     },
-    
+
+    selectedSong: {
+        track: []
+    }
+
+
 }
 
 const persistConfig = {                                     // configure persistance here
@@ -31,6 +39,9 @@ const persistConfig = {                                     // configure persist
 const reducerGrande = combineReducers({                     // combine reducers here
     // likedSongs: likedReducer,
     // ...
+   arrayOfSongs:songsReducer,
+   selectedAlbums:albumReducer,
+    selectedSong: selectedSongReducer
    
 })
 
