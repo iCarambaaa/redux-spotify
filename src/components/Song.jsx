@@ -23,14 +23,24 @@ const Song = ({ track, arrayOfSongs, likeSong }) => {
   const [likedBoolean, setLikedBoolean] = useState();
   // let likedBoolean = arrayOfSongs.includes(track.id);
 
+
+const Song = ({ track, arrayOfSongs, selectSong }) => {
+
+  const likedBoolean = arrayOfSongs.includes(track.id)
+
+  // const handleClick = () => {
+  //   <HeartFill />
+  // }
+
   const handleClick = (track) => {
     likeSong(track);
     setLikedBoolean(!likedBoolean);
   };
 
+
   return (
     <div className="py-3 trackHover">
-      <span className="card-title trackHover px-3" style={{ color: "white" }}>
+      <span onClick={()=>(selectSong(track))} className="card-title trackHover px-3" style={{ color: "white" }}>
         {track.title}
       </span>
       <small className="duration" style={{ color: "white" }}>
