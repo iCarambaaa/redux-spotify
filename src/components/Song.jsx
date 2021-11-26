@@ -9,6 +9,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  selectSong: ( value ) => {
+    dispatch(selectSongAction(value))
+  }
   // getAlbumByAlbumId: (albumId) => {
   //   dispatch(albumSongByAlbumidAction(albumId));
   // },
