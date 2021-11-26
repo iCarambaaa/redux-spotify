@@ -3,55 +3,75 @@ import Song from "./Song";
 import { Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { albumSongByAlbumidAction } from "../redux/actions/index.js";
+import uniqid from "uniqid";
 
 const mapStateToProps = (state) => ({
-  Songs:state.arrayOfSongs.songs,
-  selectedAlbums: state. selectedAlbums
-  })
-  
-  const mapDispatchToProps = (dispatch) => ({
-    getAlbumByAlbumId :(albumId) => {
-      dispatch(albumSongByAlbumidAction(albumId))
-    }
-  })
-  
+  songs: state.arrayOfSongs.songs,
+  selectedAlbums: state.selectedAlbums,
+  // albumSongs: state.selectedAlbums.songs,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getAlbumByAlbumId: (albumId) => {
+    dispatch(albumSongByAlbumidAction(albumId));
+  },
+});
+
+let album = {};
 
 class Album extends React.Component {
-  state = {
-    album: {},
-    songs: [],
-  };
-
   componentDidMount = async () => {
+    // console.log(this.props.albumSongs);
+
     let albumId = this.props.match.params.id;
 
-    let headers = new Headers({
-      "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
-      "X-RapidAPI-Key": "222902beabmshb95a65b737cead6p1f3ac9jsn23ced94c0d20",
-    });
+    // let headers = new Headers({
+    //   "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
+    //   "X-RapidAPI-Key": "222902beabmshb95a65b737cead6p1f3ac9jsn23ced94c0d20",
+    // });
 
-    this.getAlbumByAlbumId(albumId)
+    await this.props.getAlbumByAlbumId(albumId);
 
-  //   try {
-  //     let response = await fetch(
-  //       "https://striveschool-api.herokuapp.com/api/deezer/album/" + albumId,
-  //       {
-  //         method: "GET",
-  //         headers,
-  //       }
-  //     );
+    console.log(this.props.selectedAlbums);
+    console.log(this.props.selectedAlbums.tracks);
+    console.log(this.props.selectedAlbums.cover);
+    //   try {
+    //     let response = await fetch(
+    //       "https://striveschool-api.herokuapp.com/api/deezer/album/" + albumId,
+    //       {
+    //         method: "GET",
+    //         headers,
+    //       }
+    //     );
 
-  //     if (response.ok) {
-  //       let album = await response.json();
-  //       this.setState({
-  //         album,
-  //         songs: album.tracks.data,
-  //       });
-  //     }
-  //   } catch (exception) {
-  //     console.log(exception);
-  //   }
-   };
+    //     if (response.ok) {
+    //       let album = await response.json();
+    //       this.setState({
+    //         album,
+    //         songs: album.tracks.data,
+    //       });
+    //     }
+    //   } catch (exception) {
+    //     console.log(exception);
+    // console.log(this.props.selectedAlbums);
+    // console.log(this.props.selectedAlbums.tracks);
+    // console.log(this.props.selectedAlbums.cover);
+    //   }
+  };
+
+  componentDidUpdate = async (prevProps) => {
+    let albumId = this.props.match.params.id;
+
+    if (this.props.selectedAlbums !== prevProps.selectedAlbums) {
+      album = { ...this.props.selectedAlbums };
+      await this.props.getAlbumByAlbumId(albumId);
+      console.log(album);
+      console.log(album.selectedAlbums.tracks.data);
+      console.log(album.selectedAlbums.title);
+      console.log(album.selectedAlbums.cover);
+      console.log({ ...this.props.selectedAlbums.title });
+    }
+  };
 
   render() {
     return (
@@ -66,19 +86,21 @@ class Album extends React.Component {
           </div>
         </Row>
         <Row>
-          {this.state.album.cover && (
+          {album.selectedAlbums && (
             <div className="col-md-3 pt-5 text-center" id="img-container">
               <img
-                src={this.state.album.cover}
+                src={album.selectedAlbums.cover}
                 className="card-img img-fluid"
                 alt="Album"
               />
               <div className="mt-4 text-center">
-                <p className="album-title">{this.state.album.title}</p>
+                <p className="album-title">{album.selectedAlbums.title}</p>
               </div>
               <div className="text-center">
                 <p className="artist-name">
-                  {this.state.album.artist ? this.state.album.artist.name : ""}
+                  {album.selectedAlbums.artist
+                    ? album.selectedAlbums.artist.name
+                    : ""}
                 </p>
               </div>
               <div className="mt-4 text-center">
@@ -89,13 +111,15 @@ class Album extends React.Component {
             </div>
           )}
           <div className="col-md-8 p-5">
-            <Row>
-              <div className="col-md-10 mb-5" id="trackList">
-                {this.state.songs.map((song) => (
-                  <Song track={song} key={song.id} />
-                ))}
-              </div>
-            </Row>
+            {album.selectedAlbums ? (
+              <Row>
+                <div className="col-md-10 mb-5" id={uniqid}>
+                  {album.selectedAlbums.tracks.data.map((song) => (
+                    <Song track={song} key={song.id} />
+                  ))}
+                </div>
+              </Row>
+            ) : null}
           </div>
         </Row>
       </div>
@@ -103,4 +127,4 @@ class Album extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps )(Album)
+export default connect(mapStateToProps, mapDispatchToProps)(Album);

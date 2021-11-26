@@ -3,16 +3,17 @@ import AlbumCard from "./AlbumCard";
 import { Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import { getSongByArtistNameAction } from "../redux/actions/index.js";
+import uniqid from "uniqid";
 
 const mapStateToProps = (state) => ({
-Songs:state.arrayOfSongs.songs
-})
+  songs: state.arrayOfSongs.songs,
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  getSongsByArtistName: (artistName) => {
-    dispatch(getSongByArtistNameAction(artistName))
-  }
-})
+  getSongsByArtistName: (artistName, category) => {
+    dispatch(getSongByArtistNameAction(artistName, category));
+  },
+});
 
 class Home extends React.Component {
   state = {
@@ -67,7 +68,6 @@ class Home extends React.Component {
   // };
 
   componentDidMount = async () => {
-   
     let rockRandomArtists = [];
     let popRandomArtists = [];
     let hipHopRandomArtists = [];
@@ -101,11 +101,14 @@ class Home extends React.Component {
     for (let j = 0; j < rockRandomArtists.length; j++)
       await this.props.getSongsByArtistName(rockRandomArtists[j], "rockSongs");
 
-    for (let k = 0; k < popRandomArtists.length; k++)
-      await this.props.getSongsByArtistName(popRandomArtists[k], "popSongs");
+    // for (let k = 0; k < popRandomArtists.length; k++)
+    //   await this.props.getSongsByArtistName(popRandomArtists[k], "popSongs");
 
-    for (let l = 0; l < hipHopRandomArtists.length; l++)
-      await this.props.getSongsByArtistName(hipHopRandomArtists[l], "hipHopSongs");
+    // for (let l = 0; l < hipHopRandomArtists.length; l++)
+    //   await this.props.getSongsByArtistName(
+    //     hipHopRandomArtists[l],
+    //     "hipHopSongs"
+    //   );
   };
 
   render() {
@@ -138,13 +141,13 @@ class Home extends React.Component {
           <>
             <Row>
               <Col xs={10}>
-                <div id="rock">
+                <div id={uniqid}>
                   <h2>Rock Classics</h2>
                   <Row
                     className="row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3"
                     id="rockSection"
                   >
-                    {this.state.rockSongs.map((song) => (
+                    {this.props.songs.map((song) => (
                       <AlbumCard song={song} key={song.id} />
                     ))}
                   </Row>
@@ -188,4 +191,4 @@ class Home extends React.Component {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
