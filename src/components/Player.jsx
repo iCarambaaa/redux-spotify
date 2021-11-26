@@ -10,17 +10,18 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const Player = ({selectedSong}) => {
-  useEffect(() => {
-    console.log(selectedSong.track[0].title_short)
-  },[selectedSong])
+  
 return (
   <div className="container-fluid fixed-bottom bg-container pt-1">
     
     <Row>
     
-      <div className="col-lg-8 offset-lg-4">
+      <div className="col-lg-10 offset-lg-2">
         <Row>
-          <div className="col-6 col-md-4 col-lg-2 offset-3 offset-md-4 offset-lg-5 playerControls mt-1">
+        <div className="col-6 col-md-4 col-lg-2">
+          <h6 className="text-white">{selectedSong.track[0].title_short}</h6>
+        </div>
+          <div className="col-6 col-md-4 col-lg-2 offset-1 offset-md-2 offset-lg-3 playerControls mt-1">
             <Row >
               <a href="/">
                 <img src="/playerbuttons/Shuffle.png" alt="shuffle" />
