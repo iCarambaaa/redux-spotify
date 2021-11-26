@@ -38,11 +38,11 @@ const persistedReducer = persistReducer(persistConfig, reducerGrande) // wrap th
 
 
 const store = createStore(                         // need to import this in index.js    <Provider store={configureStore}>   
-    persistedReducer,
+    persistedReducer,                              // pass the persisted reducer instead of rootReducer to createStore
     initialState,
     aComposeFunctionThatAlwaysWorks(applyMiddleware(thunk)) // composing two middlewares (DEV & thug) thug needs to be wrapped in applyMiddleware()
 )
 
-const persistor = persistStore(store)
+const persistor = persistStore(store)               // used to create the persisted store
 
 export {store, persistor}
