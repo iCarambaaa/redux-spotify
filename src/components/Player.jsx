@@ -21,7 +21,7 @@ return (
       <div className="col-lg-10 offset-lg-2">
         <Row>
         <div className="col-6 col-md-4 col-lg-2">
-          {/* {selectedSong.track === []?<h6></h6>:<h6 className="text-white">{selectedSong.track[0].title_short}</h6>} */}
+          {selectedSong.track.length === 0?<h6></h6>:<h6 className="text-white">{selectedSong.track[0].title_short}</h6>}
           {/* <h6 className="text-white">{selectedSong.track[0].title_short}</h6> */}
         </div>
           <div className="col-6 col-md-4 col-lg-2 offset-1 offset-md-2 offset-lg-3 playerControls mt-1">
