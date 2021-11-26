@@ -1,3 +1,4 @@
+
 export const SEARCH_SONG_BY_ARTIST_NAME = 'SEARCH_SONG_BY_ARTIST_NAME'
 //export const GET_SONGS_ERROR ='GET_SONGS_ERROR'
 export const ALBUM_SONG_BY_ALBUMID ='ALBUM_SONG_BY_ALBUMID'
@@ -101,3 +102,10 @@ export const artistByIdAndNameAction =(artistId,)=>{
     }
 
 }
+
+export const SELECTED_SONG = 'SELECTED_SONG'
+
+export const selectSongAction = (song) => ({
+    type: SELECTED_SONG,
+    payload: song
+})
